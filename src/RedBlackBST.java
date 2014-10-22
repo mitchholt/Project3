@@ -473,11 +473,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     	if (x == null)
     		return;
     	inOrderTraverse(x.left, k, keys);
-    	if (k > 0)
-    	{
-    		keys.enqueue(x.key);
-    		k--;
-    	}
+    	if (k > keys.size())
+      		keys.enqueue(x.key);
+    	else 
+    		return;
     	inOrderTraverse(x.right, k, keys);
     }
     
@@ -496,11 +495,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     	if (x == null)
     		return;
     	backwardsTraverse(x.right, k, keys);
-    	if (k > 0)
-    	{
+    	if (k >  keys.size())
     		keys.enqueue(x.key);
-    		k--;
-    	}
+    	else
+    		return;
     	backwardsTraverse(x.left, k, keys);
     }
     
