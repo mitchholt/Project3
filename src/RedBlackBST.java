@@ -459,26 +459,49 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 		
 	}
 
-    public Iterable<Key> kSmallest(int k){
+    public Iterable<Key> kSmallest(int k) {
         /* TODO: Implement kSmallest here... */
     	if (k < 0 || k > size(root))
     		return null;
     	Queue<Key> keys = new Queue<Key>();
-    	Node current = root;
-    	int size;
-    	while (current != null)
-    	{
-    		size = size(current.left);
-    	}
+    	inOrderTraverse(root, k, keys);
     	return keys;
     }
+    
+    private void inOrderTraverse(Node x, int k, Queue<Key> keys)
+    {
+    	if (x == null)
+    		return;
+    	inOrderTraverse(x.left, k, keys);
+    	if (k > 0)
+    	{
+    		keys.enqueue(x.key);
+    		k--;
+    	}
+    	inOrderTraverse(x.right, k, keys);
+    }
+    
 
     public Iterable<Key> kLargest(int k){
         /* TODO: Implement kLargest here... */
     	if (k < 0 || k > size(root))
     		return null;
     	Queue<Key> keys = new Queue<Key>();
-    	
+    	backwardsTraverse(root, k, keys);
+    	return keys;
+    }
+    
+    private void backwardsTraverse(Node x, int k, Queue<Key> keys)
+    {
+    	if (x == null)
+    		return;
+    	backwardsTraverse(x.right, k, keys);
+    	if (k > 0)
+    	{
+    		keys.enqueue(x.key);
+    		k--;
+    	}
+    	backwardsTraverse(x.left, k, keys);
     }
     
 	/*************************************************************************

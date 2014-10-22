@@ -120,22 +120,46 @@ public class LinearProbingHashST<Key extends Comparable<Key>, Value>{
     
     public int rank(Key key){
         /* TODO: Implement rank here... */
+    	int rank = 0;
+    	for (int i = 0; i < M; i++)
+    	{
+    		if (keys[i] == null)
+    			continue;
+    		int cmp = key.compareTo(keys[i]);
+    		if (cmp > 0)
+    			rank++;
+    	}
+    	return rank;
     }
     
     public Key getValByRank(int k){
         /* TODO: Implement getValByRank here... */
+    	
     }
     
     public Iterable<Key> kSmallest(int k){
         /* TODO: Implement kSmallest here... */
+    	
     }
     
     public Iterable<Key> kLargest(int k){
         /* TODO: Implement kLargest here... */
+    	
     }
     
     public int rangeCount(Key low, Key high){
         /* TODO: Implement rangeCount here... */
+    	int count = 0;
+    	for (int i = 0; i < M; i++)
+    	{
+    		if (keys[i] == null)
+    			continue;
+    		int cmp1 = low.compareTo(keys[i]);
+    		int cmp2 = high.compareTo(keys[i]);
+    		if (cmp1 < 0 && cmp2 > 0)
+    			count++;
+    	}
+    	return count;
     }
     
     
