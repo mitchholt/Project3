@@ -134,17 +134,48 @@ public class LinearProbingHashST<Key extends Comparable<Key>, Value>{
     
     public Key getValByRank(int k){
         /* TODO: Implement getValByRank here... */
-    	
+    	MaxHeap<Key> heap = new MaxHeap<Key>(k);
+    	for (int i = 0; i < k; i++)
+    	{
+    		if (keys[i] != null)
+    			heap.insert(keys[i]);
+    	}
+    	Key max = heap.returnMax();
+    	for (int i = k; i < M; i++)
+    	{
+    		if (keys[i] == null)
+    			continue;
+    		else if (max.compareTo(keys[i]) > 0)
+    		{
+    			heap.delMax();
+    			heap.insert(keys[i]);
+    		}
+    	}
+    	return heap.returnMax();
     }
     
     public Iterable<Key> kSmallest(int k){
         /* TODO: Implement kSmallest here... */
-    	
+    	Queue<Key> kSmallestKeys = new Queue<Key>();
+    	MinHeap<Key> heap = new MinHeap<Key>(k);
+    	for (int i = 0; i < M; i++)
+    		if (keys[i] != null)
+    			heap.insert(keys[i]);
+    	for (int i = 0; i < k; i++)
+    		kSmallestKeys.enqueue(heap.delMin());
+    	return kSmallestKeys;
     }
     
     public Iterable<Key> kLargest(int k){
         /* TODO: Implement kLargest here... */
-    	
+    	Queue<Key> kLargestKeys = new Queue<Key>();
+    	MaxHeap<Key> heap = new MaxHeap<Key>(k);
+    	for (int i = 0; i < M; i++)
+    		if (keys[i] != null)
+    			heap.insert(keys[i]);
+    	for (int i = 0; i < k; i++)
+    		kLargestKeys.enqueue(heap.delMax());
+    	return kLargestKeys;
     }
     
     public int rangeCount(Key low, Key high){
