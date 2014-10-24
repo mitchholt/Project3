@@ -381,24 +381,24 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 	// the key of rank k
 	public Key getValByRank(int k) {
         /* TODO: Implement getValByRank here... */
-		if (k < 0 || k > size(root))
+		if (k < 0 || k > size(root))			// return if k is not a valid input
 			return null;
-		Node current = root;
+		Node current = root;			
 		int count = 0;
-		while (current != null)
+		while (current != null)					// iterative version
 		{
-			count = size(current.left);
-			if (count == k)
+			count = size(current.left);			// find size of left subtree
+			if (count == k)						// if size equals k, we have found the right key
 				return current.key;
-			else if (count > k)
+			else if (count > k)					// if size is greater, we are too high and need to look for an element in the left subtree
 				current = current.left;
-			else
-			{	
+			else								// we are too low, need to go right 
+			{									
 				current = current.right;
-				k = k - count - 1;
+				k = k - count - 1;				// subtract the left subtree and parent node from k as we move right to keep track of rank
 			}
 		}
-		return null;
+		return null;							
 	}
 
 
@@ -448,58 +448,63 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 	}
 
 	// number keys between lo and hi
-	public int rangeCount(Key lo, Key hi) {
+	public int rangeCount(Key lo, Key hi) {			
         /* TODO: Implement rangeCount here... */
-		int total = size(root);
-		Node lowBound = ceiling(root, lo);
-		Node highBound = floor(root, hi);
-		int lowRange = size(lowBound.left);
-		int highRange = total - size(highBound.right);
-		return highRange - lowRange;
+		if (hi.compareTo(lo) < 0)					// check for bad input, return 0
+			return 0;
+		Node lowBound = ceiling(root, lo);			// find lo or the key closest to lo that is larger
+		Node highBound = floor(root, hi);			// find hi or the key closest to hi that is smaller
+		int lowRange = rank(lowBound.key);			// compute the rank of both functions
+		int highRange = rank(highBound.key);
+		return highRange - lowRange + 1;			// subtract the larger from the smaller and add 1
 		
 	}
 
     public Iterable<Key> kSmallest(int k) {
         /* TODO: Implement kSmallest here... */
-    	if (k < 0 || k > size(root))
+    	if (k < 0 || k > size(root))				// check for bad input
     		return null;
-    	Queue<Key> keys = new Queue<Key>();
-    	inOrderTraverse(root, k, keys);
+    	Queue<Key> keys = new Queue<Key>();			// create queue
+    	inOrderTraverse(root, k, keys);				// inorder traverse the tree
     	return keys;
     }
     
     private void inOrderTraverse(Node x, int k, Queue<Key> keys)
     {
-    	if (x == null)
+    	if (x == null)								// if node is null, return 
     		return;
-    	inOrderTraverse(x.left, k, keys);
-    	if (k > keys.size())
+    	inOrderTraverse(x.left, k, keys);			// go all the way left
+    	if (k > keys.size())						// if the queue holds less elements than we want, add another
+    	{
       		keys.enqueue(x.key);
+    	}
     	else 
-    		return;
-    	inOrderTraverse(x.right, k, keys);
+    		return;									// if queue already has enough, return
+    	inOrderTraverse(x.right, k, keys);			// go right
     }
     
 
     public Iterable<Key> kLargest(int k){
         /* TODO: Implement kLargest here... */
-    	if (k < 0 || k > size(root))
+    	if (k < 0 || k > size(root))				// check for bad input
     		return null;
-    	Queue<Key> keys = new Queue<Key>();
-    	backwardsTraverse(root, k, keys);
+    	Queue<Key> keys = new Queue<Key>();			// create queue
+    	backwardsTraverse(root, k, keys);			// traverse tree starting with largest keys
     	return keys;
     }
     
     private void backwardsTraverse(Node x, int k, Queue<Key> keys)
     {
-    	if (x == null)
+    	if (x == null)								// return is node is null
     		return;
-    	backwardsTraverse(x.right, k, keys);
-    	if (k >  keys.size())
+    	backwardsTraverse(x.right, k, keys);		// go all the way right
+    	if (k >  keys.size())						// if queue doesn't have the desired amount of elements, add another
+    	{
     		keys.enqueue(x.key);
-    	else
+    	}
+    	else										// if queue has enough, return
     		return;
-    	backwardsTraverse(x.left, k, keys);
+    	backwardsTraverse(x.left, k, keys);			// go left
     }
     
 	/*************************************************************************

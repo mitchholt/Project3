@@ -37,10 +37,10 @@ public class ManualTest{
                     lphs.delete(Integer.parseInt(a[++i]));
                 }
                 else if (a[i].equals("Rank")){
-                    lphs.rank(Integer.parseInt(a[++i]));
+                    System.out.printf("%d\n", lphs.rank(Integer.parseInt(a[++i])));
                 }
                 else if (a[i].equals("GetValByRank")){
-                    lphs.getValByRank(Integer.parseInt(a[++i]));
+                    System.out.printf("%d\n", lphs.getValByRank(Integer.parseInt(a[++i])));
                 }
                 else if (a[i].equals("RangeCount")){
                     lphs.rangeCount(Integer.parseInt(a[++i]),Integer.parseInt(a[++i]));
@@ -68,13 +68,13 @@ public class ManualTest{
                     rbt.delete(Integer.parseInt(a[++i]));
                 }
                 else if (a[i].equals("Rank")){
-                    rbt.rank(Integer.parseInt(a[++i]));
+                    System.out.printf("%d\n", rbt.rank(Integer.parseInt(a[++i])));
                 }
                 else if (a[i].equals("GetValByRank")){
-                    rbt.getValByRank(Integer.parseInt(a[++i]));
+                    System.out.printf("%d\n", rbt.getValByRank(Integer.parseInt(a[++i])));
                 }
                 else if (a[i].equals("Count")){
-                    rbt.rangeCount(Integer.parseInt(a[++i]),Integer.parseInt(a[++i]));
+                    System.out.printf("%d\n", rbt.rangeCount(Integer.parseInt(a[++i]),Integer.parseInt(a[++i])));
                 }
                 else if (a[i].equals("kSmallest")){
                     rbt.kSmallest(Integer.parseInt(a[++i]));

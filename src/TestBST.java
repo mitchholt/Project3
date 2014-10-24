@@ -152,7 +152,7 @@ public class TestBST{
 
     	String rowTwo = "|   Time(ms)\t\t|";
 
-    	String rowThree = "| Range Operation\t|" + " KSamllest\t" + "|" + " KLargest\t" + "|" + "RangeCount\t" + "|"+"GetVByRank\t" + "|";
+    	String rowThree = "| Range Operation\t|" + " KSmallest\t" + "|" + " KLargest\t" + "|" + "RangeCount\t" + "|"+"GetVByRank\t" + "|";
 
     	String rowFour = "|   Time(ms)\t\t|";
 

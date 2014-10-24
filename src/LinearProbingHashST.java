@@ -119,7 +119,6 @@ public class LinearProbingHashST<Key extends Comparable<Key>, Value>{
     }
     
     public int rank(Key key){
-        /* TODO: Implement rank here... */
     	int rank = 0;
     	for (int i = 0; i < M; i++)
     	{
@@ -133,23 +132,33 @@ public class LinearProbingHashST<Key extends Comparable<Key>, Value>{
     }
     
     public Key getValByRank(int k){
-        /* TODO: Implement getValByRank here... */
-    	MaxHeap<Key> heap = new MaxHeap<Key>(k);
-    	for (int i = 0; i < k; i++)
+    	if (k > N)
+    		return null;
+    	MaxHeap<Key> heap = new MaxHeap<Key>(k+1);
+    	int index = 0;
+    	int keyCount = 0;
+    	while (keyCount <= k && index < M)
     	{
-    		if (keys[i] != null)
-    			heap.insert(keys[i]);
+    		if (keys[index] != null)
+    		{
+    			heap.insert(keys[index]);
+    			keyCount++;
+    		}
+    		index++;
     	}
     	Key max = heap.returnMax();
-    	for (int i = k; i < M; i++)
+    	while (index < M)
     	{
-    		if (keys[i] == null)
-    			continue;
-    		else if (max.compareTo(keys[i]) > 0)
+    		if (keys[index] != null)
     		{
-    			heap.delMax();
-    			heap.insert(keys[i]);
+    			if (max.compareTo(keys[index]) > 0)
+    			{
+    				heap.delMax();
+    				heap.insert(keys[index]);
+    			}
+    			
     		}
+    		index++;
     	}
     	return heap.returnMax();
     }
