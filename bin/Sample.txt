@@ -9,7 +9,7 @@ Insert 9 9
 Insert 10 10
 Insert 15 15
 Insert 3 3
-Count 3 5
+RangeCount 1 3
 
 
 

@@ -124,15 +124,15 @@ public class LinearProbingHashST<Key extends Comparable<Key>, Value>{
     	{
     		if (keys[i] == null)
     			continue;
-    		int cmp = key.compareTo(keys[i]);
-    		if (cmp > 0)
+    		if (key.compareTo(keys[i]) > 0)
     			rank++;
     	}
     	return rank;
     }
     
     public Key getValByRank(int k){
-    	if (k > N)
+    	
+    	if (k > N || k < 0)
     		return null;
     	MaxHeap<Key> heap = new MaxHeap<Key>(k+1);
     	int index = 0;
@@ -164,31 +164,85 @@ public class LinearProbingHashST<Key extends Comparable<Key>, Value>{
     }
     
     public Iterable<Key> kSmallest(int k){
+    	if (k < 0 || k > N)
+    		return null;
         /* TODO: Implement kSmallest here... */
     	Queue<Key> kSmallestKeys = new Queue<Key>();
-    	MinHeap<Key> heap = new MinHeap<Key>(k);
-    	for (int i = 0; i < M; i++)
-    		if (keys[i] != null)
-    			heap.insert(keys[i]);
+    	MaxHeap<Key> heap = new MaxHeap<Key>(k);
+    	int index = 0;
+    	int keyCount = 0;
+    	while (keyCount < k && index < M)
+    	{
+    		if (keys[index] != null)
+    		{
+    			heap.insert(keys[index]);
+    			keyCount++;
+    		}
+    		index++;
+    	}
+    	Key max = heap.returnMax();
+    	while (index < M)
+    	{
+    		if (keys[index] != null)
+    		{
+    			if (max.compareTo(keys[index]) > 0)
+    			{
+    				heap.delMax();
+    				heap.insert(keys[index]);
+    			}
+    		}
+    		index++;
+    	}
     	for (int i = 0; i < k; i++)
-    		kSmallestKeys.enqueue(heap.delMin());
+    	{
+    		kSmallestKeys.enqueue(heap.delMax());
+    	}
+    	
     	return kSmallestKeys;
     }
     
     public Iterable<Key> kLargest(int k){
+    	if (k < 0 || k > N)
+    		return null;
         /* TODO: Implement kLargest here... */
     	Queue<Key> kLargestKeys = new Queue<Key>();
-    	MaxHeap<Key> heap = new MaxHeap<Key>(k);
-    	for (int i = 0; i < M; i++)
-    		if (keys[i] != null)
-    			heap.insert(keys[i]);
+    	MinHeap<Key> heap = new MinHeap<Key>(k);
+    	int index = 0;
+    	int keyCount = 0;
+    	while (keyCount < k && index < M)
+    	{
+    		if (keys[index] != null)
+    		{
+    			heap.insert(keys[index]);
+    			keyCount++;
+    		}
+    		index++;
+    	}
+    	Key min = heap.returnMin();
+    	while (index < M)
+    	{
+    		if (keys[index] != null)
+    		{
+    			if (min.compareTo(keys[index]) < 0)
+    			{
+    				heap.delMin();
+    				heap.insert(keys[index]);
+    			}
+    		}
+    		index++;
+    	}
     	for (int i = 0; i < k; i++)
-    		kLargestKeys.enqueue(heap.delMax());
+    	{
+    		kLargestKeys.enqueue(heap.delMin());
+    	}
+    	
     	return kLargestKeys;
     }
     
     public int rangeCount(Key low, Key high){
         /* TODO: Implement rangeCount here... */
+    	if (high.compareTo(low) < 0)
+    		return 0;
     	int count = 0;
     	for (int i = 0; i < M; i++)
     	{
@@ -196,7 +250,7 @@ public class LinearProbingHashST<Key extends Comparable<Key>, Value>{
     			continue;
     		int cmp1 = low.compareTo(keys[i]);
     		int cmp2 = high.compareTo(keys[i]);
-    		if (cmp1 < 0 && cmp2 > 0)
+    		if (cmp1 <= 0 && cmp2 >= 0)
     			count++;
     	}
     	return count;

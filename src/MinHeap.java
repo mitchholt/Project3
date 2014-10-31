@@ -1,3 +1,6 @@
+// Sedgewick, Robert, and Kevin Daniel Wayne. Algorithms. Fourth ed. Upper Saddle River, NJ: Addison-Wesley, 2011. Print.
+// basically the book implementation with one changed line to make it a minheap rather than max
+
 import java.util.*;
 
 class MinHeap<Key extends Comparable<Key>> {
@@ -55,6 +58,11 @@ class MinHeap<Key extends Comparable<Key>> {
 		pq[N+1] = null;
 		sink(1);
 		return min;
+	}
+	
+	public Key returnMin()
+	{
+		return pq[1];
 	}
 	
 	private boolean less(int i, int j)

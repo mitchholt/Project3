@@ -149,7 +149,7 @@ public class TestHashing{
 
     public static void testall(){
 
-    	LinearProbingHashST<Integer, Integer> lphs = new LinearProbingHashST<Integer, Integer>();
+    	LinearProbingHashST<Integer, Integer> lphs = new LinearProbingHashST<Integer, Integer>(CAPACITY);
 
     	dataset = new int[2000];
 

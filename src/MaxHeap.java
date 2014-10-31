@@ -1,3 +1,5 @@
+// Sedgewick, Robert, and Kevin Daniel Wayne. Algorithms. Fourth ed. Upper Saddle River, NJ: Addison-Wesley, 2011. Print.
+
 import java.util.*;
 
 class MaxHeap<Key extends Comparable<Key>>  

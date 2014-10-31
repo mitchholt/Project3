@@ -49,10 +49,10 @@ public class TestEngine{
             		sum = sum + Double.parseDouble(args[3+i]);
             		percentage[i] = Double.parseDouble(args[3+i]);
             	}
-            	if (sum != 100){
-            		System.out.format("The total percentage should be 100\n");
-            		return;
-            	}
+            	//if (sum != 100){
+            	//	System.out.format("The total percentage should be 100\n");
+            	//	return;
+            	//}
             	new TestBST(Integer.parseInt(args[1]), percentage);
             }
             else new TestBST(Integer.parseInt(args[1]));

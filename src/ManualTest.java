@@ -43,7 +43,7 @@ public class ManualTest{
                     System.out.printf("%d\n", lphs.getValByRank(Integer.parseInt(a[++i])));
                 }
                 else if (a[i].equals("RangeCount")){
-                    lphs.rangeCount(Integer.parseInt(a[++i]),Integer.parseInt(a[++i]));
+                    System.out.println(lphs.rangeCount(Integer.parseInt(a[++i]),Integer.parseInt(a[++i])));
                 }
                 else if (a[i].equals("kSmallest")){
                     lphs.kSmallest(Integer.parseInt(a[++i]));
